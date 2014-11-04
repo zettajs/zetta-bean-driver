@@ -40,12 +40,12 @@ Bean.prototype.init = function(config) {
 Bean.prototype.stopMonitors = function() {
   clearInterval(this._timer);
 
-  if (this._accellCb) {
-    self._bean.removeListener(this._accellCb);
+  if (typeof this._accellCb === 'function') {
+    this._bean.removeListener('accell', this._accellCb);
   }
 
-  if (this._tempCb) {
-    self._bean.removeListener(this._tempCb);
+  if (typeof this._tempCb === 'function') {
+    this._bean.removeListener('temp', this._tempCb);
   }
 };
 
@@ -54,9 +54,9 @@ Bean.prototype.startMonitors = function() {
   this.stopMonitors();
 
   this._timer = setInterval(function(){
-    self._bean.requestAccell(function(){});
-    self._bean.requestTemp(function(){});
-  }, 50);
+    self._bean.requestAccell(function(err) {});
+    self._bean.requestTemp(function() {});
+  }, 500);
 
   this._accellCb = function(x, y, z, valid) {
     self.accelerationX = x;
@@ -73,15 +73,20 @@ Bean.prototype.startMonitors = function() {
 };
 
 Bean.prototype.onExit = function(options, err) {
+  this.stopMonitors();
+
+  setTimeout(function(){
+    process.exit();
+  }, 2000);
+
   var self = this;
   if (options.onError) {
     console.error(err.stack)
     process.exit();
   }
-  self.call('set-color', '#ff0000', function(){
-    self.call('disconnect', function(){
-      process.exit();
-    });
+
+  self.call('disconnect', function(){
+    process.exit();
   });
 };
 
@@ -99,6 +104,8 @@ Bean.prototype.setColor = function(color, cb) {
 };
 
 Bean.prototype.disconnect = function(cb) {
+  this.stopMonitors();
+
   var self = this;
   this._data.disconnect(function(err) {
     self.state = 'disconnected';

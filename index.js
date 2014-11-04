@@ -5,8 +5,9 @@ var Bean = require('./bean');
 
 var BEAN_SERVICE_ID = [ 'a495ff10c5b14b44b5121370f02d74de' ];
 
-var BeanScout = module.exports = function() {
+var BeanScout = module.exports = function(beanNames) {
   Scout.call(this);
+
 };
 util.inherits(BeanScout, Scout);
 

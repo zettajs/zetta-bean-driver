@@ -1,13 +1,13 @@
 {
   "name": "zetta-bean-driver",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "description": "Zetta driver for the bean",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "ble-bean": "^1.0.0",
     "color": "^0.7.3",
