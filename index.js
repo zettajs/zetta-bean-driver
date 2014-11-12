@@ -1,4 +1,5 @@
 var util = require('util');
+var exec = require('child_process').exec;
 var Scout = require('zetta-scout');
 var noble = require('noble');
 var Bean = require('./bean');
@@ -17,11 +18,7 @@ util.inherits(BeanScout, Scout);
 
 BeanScout.prototype.init = function(cb) {
   noble.on('discover', this._beanDiscovered.bind(this));
-  noble.on('stateChange', function(state) {
-    if (state === 'poweredOn') {
-      noble.startScanning(BEAN_SERVICE_ID);
-    }
-  });
+  noble.startScanning(BEAN_SERVICE_ID);
   cb();
 };
 
@@ -34,6 +31,7 @@ BeanScout.prototype._beanDiscovered = function(data) {
   var query = this.server.where({ type: 'ble-bean', uuid: data.uuid });
   
   var connect = function(bean) {
+    console.log('connecting to bean')
     bean.call('connect', function(err) {});
   };
   
