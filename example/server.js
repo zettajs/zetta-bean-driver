@@ -2,5 +2,5 @@ var zetta = require('zetta');
 var Bean = require('../');
 
 zetta()
-  .use(Bean)
+  .use(Bean, 'Bean1')
   .listen(1337);

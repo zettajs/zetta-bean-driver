@@ -6,8 +6,12 @@ var Bean = require('./bean');
 var BEAN_SERVICE_ID = [ 'a495ff10c5b14b44b5121370f02d74de' ];
 
 var BeanScout = module.exports = function(beanNames) {
-  Scout.call(this);
+  this.beanNames = beanNames || [];
+  if (typeof this.beanNames === 'string') {
+    this.beanNames = [this.beanNames];
+  }
 
+  Scout.call(this);
 };
 util.inherits(BeanScout, Scout);
 
@@ -22,6 +26,10 @@ BeanScout.prototype.init = function(cb) {
 };
 
 BeanScout.prototype._beanDiscovered = function(data) {
+  if (this.beanNames.indexOf(data.advertisement.localName) < 0) {
+    return;
+  }
+
   var self = this;
   var query = this.server.where({ type: 'ble-bean', uuid: data.uuid });
   
