@@ -92,7 +92,12 @@ Bean.prototype.onExit = function(options, err) {
 
 Bean.prototype.setColor = function(color, cb) {
   var self = this;
-  color = Color(color);
+  try {
+    color = Color(color);
+  } catch(err) {
+    return cb(err);
+  }
+
   this._bean.setColor(new Buffer(color.rgbArray()), function(err) {
     if (err) {
       return cb(err);
