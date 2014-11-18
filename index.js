@@ -23,7 +23,7 @@ BeanScout.prototype.init = function(cb) {
 };
 
 BeanScout.prototype._beanDiscovered = function(data) {
-  if (this.beanNames.indexOf(data.advertisement.localName) < 0) {
+  if (this.beanNames.length > 0 && this.beanNames.indexOf(data.advertisement.localName) < 0) {
     return;
   }
 
