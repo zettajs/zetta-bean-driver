@@ -1,12 +1,12 @@
 {
   "name": "zetta-bean-driver",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Zetta driver for the bean",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Adam Magaluk <AdamMagaluk@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "ble-bean": "^1.0.0",
@@ -14,5 +14,23 @@
     "noble": "^0.3.5",
     "zetta-device": "^0.17.0",
     "zetta-scout": "^0.6.0"
-  }
+  },
+  "directories": {
+    "example": "example"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zettajs/zetta-bean-driver.git"
+  },
+  "keywords": [
+    "zetta",
+    "bean",
+    "bluetooth",
+    "LightBlue"
+  ],
+  "bugs": {
+    "url": "https://github.com/zettajs/zetta-bean-driver/issues"
+  },
+  "homepage": "https://github.com/zettajs/zetta-bean-driver#readme"
 }
