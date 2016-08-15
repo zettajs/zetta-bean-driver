@@ -18,7 +18,13 @@ util.inherits(BeanScout, Scout);
 
 BeanScout.prototype.init = function(cb) {
   noble.on('discover', this._beanDiscovered.bind(this));
-  noble.startScanning(BEAN_SERVICE_ID);
+  noble.on('stateChange', function(state) {
+    if (state === 'poweredOn') {
+      noble.startScanning(BEAN_SERVICE_ID);
+    } else {
+      noble.stopScanning();
+    }
+  });
   cb();
 };
 
